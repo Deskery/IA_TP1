@@ -19,7 +19,7 @@ public class Bot {
 
 
 
-        goal.Activate();
+        goal.Process();
         TimeUnit.SECONDS.sleep(2);
         goal.Terminate();
     }
