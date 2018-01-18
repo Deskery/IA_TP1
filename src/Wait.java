@@ -1,5 +1,5 @@
-public class Attente extends BotGoal {
-    public Attente(Bot Owner) {
+public class Wait extends BotGoal {
+    public Wait(Bot Owner) {
         super(Owner);
     }
 

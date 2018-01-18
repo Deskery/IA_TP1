@@ -1,8 +1,19 @@
+import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+
 public class Main {
 
     public static void main(String [ ] args) {
-        Environment environment = new Environment(true, "environment");
-        Bot bot = new Bot("bot");
+        PipedOutputStream out = new PipedOutputStream();
+        PipedInputStream in = new PipedInputStream(1);
+        try {
+            in.connect(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Environment environment = new Environment(true, "environment",out);
+        Bot bot = new Bot("bot",in);
         environment.start();
         bot.start();
     }
