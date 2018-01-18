@@ -1,25 +1,27 @@
-
-import jdk.nashorn.internal.ir.CatchNode;
-
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.util.concurrent.TimeUnit;
 
 public class Bot extends Thread {
     private BotGoal goal;
-    private BotGoal mem;
+    private BotGoal storedGoal;
     private Wait wait;
     private String threadName;
+    private boolean endGame;
     private int in;
+    private PipedInputStream input;
 
     public Bot(String threadName,PipedInputStream in) {
         this.goal = new A1(this);
         this.threadName = threadName;
-        wait = new Wait(this);
+        this.endGame = false;
+        this.input = in;
+        this.wait = new Wait(this);
+    }
 
-        try{
-            this.in = in.read();
-        } catch (IOException e){ e.printStackTrace();}
+    public void setEndGame() {
+        this.endGame = true;
+
     }
 
     public BotGoal getGoal() {
@@ -30,20 +32,34 @@ public class Bot extends Thread {
         this.goal = goal;
     }
 
-    public void Update() {
+    private void Update() {
 
+        try{
+            this.in = input.read();
+        } catch (IOException e){ e.printStackTrace();}
+
+        // 1 = environment is not safe
         if(in == 1 && goal != wait)
         {
-            mem = goal;
+            storedGoal = goal;
             setGoal(wait);
         }
 
-        if(goal == wait && in == 0)
+        // 0 = environment is safe
+        if(in == 0)
         {
-            goal = mem;
+            // If the bot was waiting the bad conditions to pass
+            if (goal instanceof Wait) {
+                System.out.println("plopiploupi");
+                goal = storedGoal;
+            }
+
+
+            System.out.println("plopiploup");
         }
 
         goal.Process();
+        goal.Display();
         try
         {
             TimeUnit.SECONDS.sleep(2);
@@ -54,6 +70,8 @@ public class Bot extends Thread {
 
     @Override
     public void run() {
-            Update();
+        while (!endGame) {
+           Update();
+        }
     }
 }

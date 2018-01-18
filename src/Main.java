@@ -16,5 +16,15 @@ public class Main {
         Bot bot = new Bot("bot",in);
         environment.start();
         bot.start();
+
+        while(true) {
+            if (!environment.isSafe() && bot.getGoal() instanceof A2) {
+                environment.setEndGame();
+                bot.setEndGame();
+                System.out.println("Perdu !");
+                break;
+            }
+        }
+
     }
 }

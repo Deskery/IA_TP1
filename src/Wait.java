@@ -7,7 +7,6 @@ public class Wait extends BotGoal {
     @Override
     public void Terminate(){
         BOwner.setGoal(BOwner.getGoal());
-
     }
 
 

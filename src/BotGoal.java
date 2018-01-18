@@ -43,6 +43,6 @@ public class BotGoal{
 
     public void Display()
     {
-        System.out.println("Je suis ");
+        System.out.print("Je suis ");
     }
 }
