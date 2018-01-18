@@ -1,10 +1,12 @@
 import java.util.concurrent.TimeUnit;
 
-public class Bot {
+public class Bot extends Thread {
     private BotGoal goal;
+    private String threadName;
 
-    public Bot(BotGoal goal) {
-        this.goal = goal;
+    public Bot(String threadName) {
+        this.goal = new A1(this);
+        this.threadName = threadName;
     }
 
     public BotGoal getGoal() {
@@ -15,12 +17,15 @@ public class Bot {
         this.goal = goal;
     }
 
-    public void Update() throws  InterruptedException{
-
-
+    public void Update() throws InterruptedException{
 
         goal.Activate();
         TimeUnit.SECONDS.sleep(2);
         goal.Terminate();
+    }
+
+    @Override
+    public void run() {
+
     }
 }
