@@ -1,15 +1,26 @@
-public class Bot {
-    private BotGoalEnum goal;
+import java.util.concurrent.TimeUnit;
 
-    public Bot(BotGoalEnum goal) {
+public class Bot {
+    private BotGoal goal;
+
+    public Bot(BotGoal goal) {
         this.goal = goal;
     }
 
-    public BotGoalEnum getGoal() {
+    public BotGoal getGoal() {
         return goal;
     }
 
-    public void setGoal(BotGoalEnum goal) {
+    public void setGoal(BotGoal goal) {
         this.goal = goal;
+    }
+
+    public void Update() throws  InterruptedException{
+
+
+
+        goal.Activate();
+        TimeUnit.SECONDS.sleep(2);
+        goal.Terminate();
     }
 }
