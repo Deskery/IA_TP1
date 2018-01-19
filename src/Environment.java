@@ -4,15 +4,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Environment extends Thread {
     private String threadName;
-    private PipedOutputStream out;
+//    private PipedOutputStream out;
     private boolean safe;
     private boolean endGame;
 
-    public Environment(boolean safe, String threadName, PipedOutputStream out) {
-        this.safe = safe;
+//    public Environment(String threadName, PipedOutputStream out) {
+    public Environment(String threadName) {
+        this.safe = true;
         this.endGame = false;
         this.threadName = threadName;
-        this.out = out;
+//        this.out = out;
     }
 
     public void setEndGame() {
@@ -26,15 +27,15 @@ public class Environment extends Thread {
     private void setRandomState() {
         double randomVar = Math.random();
         this.safe = randomVar >= 0.2;
-
-        try {
-            if (safe) {
-                out.write(0);
-            }
-            else {
-                out.write(1);
-            }
-        } catch (IOException e) { e.printStackTrace();}
+//
+//        try {
+//            if (safe) {
+//                out.write(0);
+//            }
+//            else {
+//                out.write(1);
+//            }
+//        } catch (IOException e) { e.printStackTrace();}
     }
 
     @Override
