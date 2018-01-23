@@ -45,16 +45,6 @@ public class Bot extends Thread {
 
     private void updateGoal() {
 
-//        try{
-//            this.in = input.read();
-//        } catch (IOException e){ e.printStackTrace();}
-//
-//        goal.Process();
-//        goal.Display();
-//
-//        goal.Terminate();
-
-
         if (botSensor.isEnvironmentSafe()) {
             Goal newGoal = Goal.wait;
 
